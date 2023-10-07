@@ -8,18 +8,22 @@ function App() {
 
   return (
     <>
-      <div>
+      <div className="flex justify-center">
         <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
+          <img src={viteLogo} className="logo w-32 h-32" alt="Vite logo" />
         </a>
         <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
+          <img
+            src={reactLogo}
+            className="logo react w-32 h-32"
+            alt="React logo"
+          />
         </a>
       </div>
       <h1>
         Vite + React +{' '}
         <b>
-          <u>Mario❤️</u>
+          <u className="font-bold">Mario❤️</u>
         </b>
       </h1>
       <div className="card">
