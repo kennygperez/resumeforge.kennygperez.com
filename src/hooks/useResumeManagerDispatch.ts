@@ -3,9 +3,7 @@ import { useContext } from 'react';
 import { ResumeManagerAction } from '../libs/ResumeManager';
 import { ResumeManagerDispatchContext } from '../contexts/ResumeManagerDispatchContext';
 
-export function useResumeManagerDispatch(): Readonly<
-  React.Dispatch<ResumeManagerAction>
-> {
+export function useResumeManagerDispatch(): React.Dispatch<ResumeManagerAction> {
   const rmDispatch = useContext(ResumeManagerDispatchContext);
 
   if (!rmDispatch) {

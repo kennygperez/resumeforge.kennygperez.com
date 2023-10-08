@@ -6,7 +6,7 @@ import FancyBackgroundHeaderHeader from './components/FancyBackgroundHeader';
 const App: FunctionComponent = () => (
   <>
     <FancyBackgroundHeaderHeader />
-    <main>
+    <main className="my-32 flex justify-center">
       <ResumeManagerProvider>
         <Editor />
       </ResumeManagerProvider>

@@ -1,11 +1,8 @@
-import { CSSProperties, FunctionComponent } from 'react';
-
-const FancyBackgroundHeaderHeight: CSSProperties['height'] =
-  Math.pow(2, 9) + 'px';
+import { FunctionComponent } from 'react';
 
 const FancyBackgroundHeaderHeader: FunctionComponent = () => {
   return (
-    <header className="bg-gray-900">
+    <header className="bg-gray-900 fixed left-0 top-0 w-screen -z-10">
       <div className="relative isolate overflow-hidden">
         <svg
           className="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
@@ -50,7 +47,7 @@ const FancyBackgroundHeaderHeader: FunctionComponent = () => {
           />
         </div>
 
-        <div style={{ height: FancyBackgroundHeaderHeight }}></div>
+        <div className="h-screen sm:h-128"></div>
       </div>
     </header>
   );
