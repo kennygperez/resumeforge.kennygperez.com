@@ -17,7 +17,7 @@ const Tab: FunctionComponent<
         'border border-r-0 last:border border-gray-400',
         'flex flex-col justify-center',
         'hover:cursor-pointer',
-        selected ? 'bg-white border-b-white' : 'bg-gray-100'
+        selected ? 'bg-white border-b-white' : 'bg-gray-200'
       )}
       onClick={onClick}
     >
