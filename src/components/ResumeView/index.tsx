@@ -14,10 +14,11 @@ import { Section } from './Section.tsx';
 import { education, experiences, skills } from '../../data/info.ts';
 
 interface ResumeViewProps {
+  id: string;
   mode: 'edit' | 'print';
 }
 
-const ResumeView: FunctionComponent<ResumeViewProps> = ({ mode }) => {
+const ResumeView: FunctionComponent<ResumeViewProps> = ({ id, mode }) => {
   const rm = useResumeManager();
   const isInEditMode = mode === 'edit';
 
@@ -30,7 +31,7 @@ const ResumeView: FunctionComponent<ResumeViewProps> = ({ mode }) => {
   }
 
   return (
-    <Document>
+    <Document id={id}>
       <div className={'grid grid-rows-10 grid-cols-8 gap-x-8 w-full h-full'}>
         {/* WHO */} {/* & */} {/* CONTACT */}
         <div className="col-span-8 row-span-1">

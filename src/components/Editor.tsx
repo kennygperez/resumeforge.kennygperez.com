@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useId } from 'react';
 import cx from 'classnames';
 
 import { useResumeManager } from '../hooks/useResumeManager';
@@ -7,10 +7,43 @@ import ResumeView from './ResumeView';
 
 const Editor: FunctionComponent = () => {
   const rm = useResumeManager();
+  const printAreaId = useId();
 
   if (rm.loading) {
     return <div>loading</div>;
   }
+
+  const handlePrintRequest = async () => {
+    const head = document.querySelector('head');
+    const resumePageArea = document.getElementById(printAreaId);
+
+    if (!head || !resumePageArea) {
+      return;
+    }
+
+    const newDoc = document.createElement('html');
+    const newHead = document.createElement('head');
+    newHead.innerHTML = head.innerHTML;
+    newDoc.append(newHead);
+
+    const newBody = document.createElement('body');
+    const clonedResumeNode = resumePageArea.cloneNode(true);
+    console.log(clonedResumeNode);
+    newBody.appendChild(clonedResumeNode);
+    newDoc.append(newBody);
+
+    const pw = window.open('', '', 'width=816,height=1056');
+
+    if (!pw) {
+      return;
+    }
+
+    pw.document.removeChild(pw.document.firstChild!);
+    pw.document.appendChild(newDoc);
+    pw.focus();
+    pw.print();
+    pw.close();
+  };
 
   return (
     <div>
@@ -26,12 +59,26 @@ const Editor: FunctionComponent = () => {
           'p-8'
         )}
       >
-        <p className="mb-8">
-          <b>Instructions</b>: Double click on the areas you would like to edit
-          on the resume below. Hit enter when you're done.
-        </p>
+        <div className="mb-8 flex flex-col">
+          <p className="mb-4">
+            <b>Instructions</b>: Double click on the areas you would like to
+            edit on the resume below. Hit enter when you're done.
+          </p>
 
-        <ResumeView mode="edit" />
+          <div className="flex justify-end">
+            <button
+              type="button"
+              className="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+              onClick={handlePrintRequest}
+            >
+              Print as PDF
+            </button>
+          </div>
+        </div>
+
+        <div className="shadow">
+          <ResumeView id={printAreaId} mode="edit" />
+        </div>
       </div>
     </div>
   );
