@@ -7,13 +7,10 @@ import EditableH1 from './EditableH1.tsx';
 import EditableA from './EditableA.tsx';
 
 import { H2 } from './H2.tsx';
-import { Period } from './Period.tsx';
+// import { Period } from './Period.tsx';
 import { Section } from './Section.tsx';
 
-// Todo: remove this stuff at the end of the project
-import { education, experiences, skills } from '../../data/info.ts';
-
-interface ResumeViewProps {
+export interface ResumeViewProps {
   id: string;
   mode: 'edit' | 'print';
 }
@@ -73,8 +70,8 @@ const ResumeView: FunctionComponent<ResumeViewProps> = ({ id, mode }) => {
         {/* HISTORY */}
         <div className="col-span-6 row-span-9">
           <H2>PROFESSIONAL EXPERIENCE</H2>
-          <Section>
-            {experiences.map((experience, index, { length }) => (
+          {/* <Section>
+            {[].map((experience, index, { length }) => (
               <div
                 key={experience.companyName}
                 className={index < length - 1 ? 'mb-2' : ''}
@@ -94,29 +91,29 @@ const ResumeView: FunctionComponent<ResumeViewProps> = ({ id, mode }) => {
                 </ul>
               </div>
             ))}
-          </Section>
+          </Section> */}
         </div>
         {/* INFO */}
         <div className="col-span-2 row-span-9">
           <H2>SKILLS</H2>
-          <Section>
-            {Object.keys(skills).map((skillGroupName, index, { length }) => (
+          {/* <Section>
+            {Object.keys([]).map((skillGroupName, index, { length }) => (
               <div
                 key={skillGroupName}
                 className={index < length - 1 ? 'mb-2' : ''}
               >
                 <div className="font-medium">{skillGroupName}</div>
                 <div className="text-gray-800">
-                  {skills[skillGroupName].join(', ')}
+                  {[][skillGroupName].join(', ')}
                 </div>
               </div>
             ))}
-          </Section>
+          </Section> */}
 
           <H2>EDUCATION</H2>
           <Section>
-            <div className="font-medium">{education.school}</div>
-            <div>{education.degree}</div>
+            <div className="font-medium">{currentResume.school}</div>
+            <div>{currentResume.degree}</div>
           </Section>
 
           <H2>LANGUAGES</H2>

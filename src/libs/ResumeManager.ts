@@ -14,6 +14,9 @@ export const ResumeSchema = z.object({
   phone: z.string(),
   email: z.string(),
   website: z.string(),
+  //
+  school: z.string(),
+  degree: z.string(),
 });
 
 export type Resume = z.infer<typeof ResumeSchema>;
@@ -47,6 +50,8 @@ export function createNewPopulatedResume(resumes: readonly Resume[]): Resume {
     email: chance.email(),
     phone: chance.phone(),
     website: 'resumeforge.kennygperez.com',
+    school: 'University of Central Kenny (UCK)',
+    degree: 'Bachelors of Kenny',
   };
 }
 

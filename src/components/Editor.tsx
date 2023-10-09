@@ -18,7 +18,7 @@ const Editor: FunctionComponent = () => {
     const resumePageArea = document.getElementById(printAreaId);
 
     if (!head || !resumePageArea) {
-      return;
+      return; // TODO: prompt error
     }
 
     const newDoc = document.createElement('html');
@@ -28,14 +28,13 @@ const Editor: FunctionComponent = () => {
 
     const newBody = document.createElement('body');
     const clonedResumeNode = resumePageArea.cloneNode(true);
-    console.log(clonedResumeNode);
     newBody.appendChild(clonedResumeNode);
     newDoc.append(newBody);
 
     const pw = window.open('', '', 'width=816,height=1056');
 
     if (!pw) {
-      return;
+      return; // TODO: prompt error
     }
 
     pw.document.removeChild(pw.document.firstChild!);

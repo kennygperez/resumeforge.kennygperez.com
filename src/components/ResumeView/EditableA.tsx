@@ -15,7 +15,7 @@ const EditableA: FunctionComponent<EditableProps> = ({ resume, field }) => {
     return (
       <input
         ref={inputRef}
-        className="h-4 text-center"
+        className="h-4 text-center bg-green-200 rounded"
         type="text"
         value={resume[field]}
         onChange={onChangeHandler}
@@ -26,7 +26,7 @@ const EditableA: FunctionComponent<EditableProps> = ({ resume, field }) => {
     return (
       <span
         className="hover:underline hover:cursor-pointer"
-        onDoubleClick={toggleEditable}
+        onClick={toggleEditable}
       >
         {resume[field]}
       </span>
