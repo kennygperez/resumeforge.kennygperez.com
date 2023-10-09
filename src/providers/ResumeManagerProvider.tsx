@@ -4,13 +4,13 @@ import {
   useEffect,
   useReducer,
 } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 import {
   Resume,
   ResumeManager,
   ResumeManagerAction,
   ResumeSchema,
+  createNewPopulatedResume,
 } from '../libs/ResumeManager';
 import { ResumeManagerContext } from '../contexts/ResumeManagerContext';
 import { ResumeManagerDispatchContext } from '../contexts/ResumeManagerDispatchContext';
@@ -98,10 +98,12 @@ const resumeMangerReducer: React.Reducer<ResumeManager, ResumeManagerAction> = (
         return { ...manager };
       }
 
-      const newResumeTitle = calcNewResumeTitle(manager.resumes);
       const newManager: ResumeManager = {
         ...manager,
-        resumes: [...manager.resumes, { id: uuidv4(), title: newResumeTitle }],
+        resumes: [
+          ...manager.resumes,
+          createNewPopulatedResume(manager.resumes),
+        ],
       };
 
       window.localStorage.setItem(
@@ -145,24 +147,6 @@ const resumeMangerReducer: React.Reducer<ResumeManager, ResumeManagerAction> = (
 
   return manager;
 };
-
-function resumeTemplateTitle(itr = 0): string {
-  return 'New Resume' + (itr === 0 ? '' : ` (${itr + 1})`);
-}
-
-function calcNewResumeTitle(resumes: readonly Resume[]): string {
-  const setOfTitles = new Set<string>(resumes.map((r) => r.title));
-
-  for (let itr = 0; itr < SAVE_LIMIT; itr++) {
-    const title = resumeTemplateTitle(itr);
-
-    if (!setOfTitles.has(title)) {
-      return title;
-    }
-  }
-
-  return resumeTemplateTitle();
-}
 
 export const ResumeManagerProvider: FunctionComponent<PropsWithChildren> = ({
   children,

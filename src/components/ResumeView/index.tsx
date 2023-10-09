@@ -1,7 +1,7 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useMemo } from 'react';
 
 import { Document } from './Document.tsx';
-import { H1 } from './H1.tsx';
+import { EditableH1 } from './EditableH1.tsx';
 import { H2 } from './H2.tsx';
 import { Period } from './Period.tsx';
 import { Section } from './Section.tsx';
@@ -9,22 +9,19 @@ import {
   education,
   email,
   experiences,
-  name,
-  phone,
   skills,
   website,
 } from '../../data/info.ts';
 import { useResumeManager } from '../../hooks/useResumeManager.ts';
 import DocumentPlaceholder from './DocumentPlaceholder.tsx';
+import { Resume } from '../../libs/ResumeManager.ts';
 
 const ResumeView: FunctionComponent = () => {
   const rm = useResumeManager();
-  const [debug, setDebug] = useState(false);
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    setDebug(!!params.get('d'));
-  }, []);
+  const currentResume = useMemo<Resume>(() => {
+    return rm.resumes.find((r) => r.id === rm.viewing)!;
+  }, [rm.resumes, rm.viewing]);
 
   if (rm.resumes.length <= 0) {
     return <DocumentPlaceholder />;
@@ -32,19 +29,14 @@ const ResumeView: FunctionComponent = () => {
 
   return (
     <Document>
-      <div
-        className={
-          'grid grid-rows-10 grid-cols-8 gap-x-8 w-full h-full' +
-          (debug ? ' bg-red-400' : '')
-        }
-      >
+      <div className={'grid grid-rows-10 grid-cols-8 gap-x-8 w-full h-full'}>
         {/* WHO */} {/* & */} {/* CONTACT */}
         <div className="col-span-8 row-span-1">
           <div className=" flex flex-col justify-center items-center">
-            <H1>{name}</H1>
+            <EditableH1  resume={currentResume} field='name'  />
             <ul className="flex justify-start items-center">
               <li>
-                <a href={`tel:1+${phone}`}>{formatPhone(phone)}</a>
+                <a href={`tel:${currentResume.phone}`}>{currentResume.phone}</a>
               </li>
               <li className="px-2">|</li>
               <li>
@@ -118,13 +110,5 @@ const ResumeView: FunctionComponent = () => {
     </Document>
   );
 };
-
-function formatPhone(uglyPhone: string): string {
-  const slice1 = uglyPhone.slice(0, 3);
-  const slice2 = uglyPhone.slice(3, 6);
-  const slice3 = uglyPhone.slice(6, 10);
-
-  return `+1 (${slice1}) ${slice2} ${slice3}`;
-}
 
 export default ResumeView;
