@@ -58,21 +58,19 @@ const Editor: FunctionComponent = () => {
           'p-8'
         )}
       >
-        <div className="mb-8 flex flex-col">
-          <p className="mb-4">
-            <b>Instructions</b>: Double click on the areas you would like to
-            edit on the resume below. Hit enter when you're done.
+        <div className="mb-8 flex justify-between items-center">
+          <p>
+            <b>Instructions</b>: Click on the areas you would like to edit. Hit
+            enter when you're done.
           </p>
 
-          <div className="flex justify-end">
-            <button
-              type="button"
-              className="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-              onClick={handlePrintRequest}
-            >
-              Print as PDF
-            </button>
-          </div>
+          <button
+            type="button"
+            className="rounded bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+            onClick={handlePrintRequest}
+          >
+            Print as PDF
+          </button>
         </div>
 
         <div className="shadow">

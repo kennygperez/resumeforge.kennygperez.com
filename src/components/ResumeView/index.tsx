@@ -5,6 +5,7 @@ import DocumentPlaceholder from './DocumentPlaceholder.tsx';
 import Document from './Document.tsx';
 import EditableH1 from './EditableH1.tsx';
 import EditableA from './EditableA.tsx';
+import EditableP from './EditableP.tsx';
 
 import { H2 } from './H2.tsx';
 // import { Period } from './Period.tsx';
@@ -112,8 +113,25 @@ const ResumeView: FunctionComponent<ResumeViewProps> = ({ id, mode }) => {
 
           <H2>EDUCATION</H2>
           <Section>
-            <div className="font-medium">{currentResume.school}</div>
-            <div>{currentResume.degree}</div>
+            <div>
+              {isInEditMode ? (
+                <EditableP
+                  className="font-medium"
+                  resume={currentResume}
+                  field="school"
+                />
+              ) : (
+                <p className="font-medium">{currentResume.school}</p>
+              )}
+            </div>
+
+            <div>
+              {isInEditMode ? (
+                <EditableP resume={currentResume} field="degree" />
+              ) : (
+                <p>{currentResume.degree}</p>
+              )}
+            </div>
           </Section>
 
           <H2>LANGUAGES</H2>

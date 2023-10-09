@@ -12,6 +12,7 @@ import { useResumeManagerDispatch } from './useResumeManagerDispatch';
 export interface EditableProps {
   resume: Readonly<Resume>;
   field: keyof Resume;
+  className?: string;
 }
 
 export function useEditable(
