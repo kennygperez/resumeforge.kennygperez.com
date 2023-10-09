@@ -14,14 +14,21 @@ import {
   skills,
   website,
 } from '../../data/info.ts';
+import { useResumeManager } from '../../hooks/useResumeManager.ts';
+import DocumentPlaceholder from './DocumentPlaceholder.tsx';
 
 const ResumeView: FunctionComponent = () => {
+  const rm = useResumeManager();
   const [debug, setDebug] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     setDebug(!!params.get('d'));
   }, []);
+
+  if (rm.resumes.length <= 0) {
+    return <DocumentPlaceholder />;
+  }
 
   return (
     <Document>
