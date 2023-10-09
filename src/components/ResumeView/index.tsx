@@ -14,16 +14,15 @@ import {
 } from '../../data/info.ts';
 import { useResumeManager } from '../../hooks/useResumeManager.ts';
 import DocumentPlaceholder from './DocumentPlaceholder.tsx';
-import { Resume } from '../../libs/ResumeManager.ts';
 
 const ResumeView: FunctionComponent = () => {
   const rm = useResumeManager();
 
-  const currentResume = useMemo<Resume>(() => {
-    return rm.resumes.find((r) => r.id === rm.viewing)!;
+  const currentResume = useMemo(() => {
+    return rm.resumes.find((r) => r.id === rm.viewing);
   }, [rm.resumes, rm.viewing]);
 
-  if (rm.resumes.length <= 0) {
+  if (rm.resumes.length <= 0 || !currentResume) {
     return <DocumentPlaceholder />;
   }
 
@@ -33,7 +32,7 @@ const ResumeView: FunctionComponent = () => {
         {/* WHO */} {/* & */} {/* CONTACT */}
         <div className="col-span-8 row-span-1">
           <div className=" flex flex-col justify-center items-center">
-            <EditableH1  resume={currentResume} field='name'  />
+            <EditableH1 resume={currentResume} field="name" />
             <ul className="flex justify-start items-center">
               <li>
                 <a href={`tel:${currentResume.phone}`}>{currentResume.phone}</a>

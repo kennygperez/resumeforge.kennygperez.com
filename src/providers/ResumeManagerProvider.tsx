@@ -94,16 +94,16 @@ const resumeMangerReducer: React.Reducer<ResumeManager, ResumeManagerAction> = (
     case 'add-new-resume': {
       console.log('WTF');
 
+      // dont update
       if (manager.resumes.length + 1 > SAVE_LIMIT) {
-        return { ...manager };
+        return manager;
       }
 
+      const newResume = createNewPopulatedResume(manager.resumes);
       const newManager: ResumeManager = {
-        ...manager,
-        resumes: [
-          ...manager.resumes,
-          createNewPopulatedResume(manager.resumes),
-        ],
+        loading: manager.loading,
+        viewing: newResume.id,
+        resumes: [...manager.resumes, newResume],
       };
 
       window.localStorage.setItem(
