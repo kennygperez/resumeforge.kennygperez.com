@@ -92,8 +92,6 @@ const resumeMangerReducer: React.Reducer<ResumeManager, ResumeManagerAction> = (
       return rm;
     }
     case 'add-new-resume': {
-      console.log('WTF');
-
       // dont update
       if (manager.resumes.length + 1 > SAVE_LIMIT) {
         return manager;
