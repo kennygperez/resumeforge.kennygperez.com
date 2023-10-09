@@ -1,10 +1,10 @@
 import { FunctionComponent, useEffect, useState } from 'react';
 
 import { Document } from './Document.tsx';
-import { H1 } from './H1';
-import { H2 } from './H2';
-import { Period } from './Period';
-import { Section } from './Section';
+import { H1 } from './H1.tsx';
+import { H2 } from './H2.tsx';
+import { Period } from './Period.tsx';
+import { Section } from './Section.tsx';
 import {
   education,
   email,
@@ -13,9 +13,9 @@ import {
   phone,
   skills,
   website,
-} from '../../data/info';
+} from '../../data/info.ts';
 
-export const Resume: FunctionComponent = () => {
+const ResumeView: FunctionComponent = () => {
   const [debug, setDebug] = useState(false);
 
   useEffect(() => {
@@ -119,3 +119,5 @@ function formatPhone(uglyPhone: string): string {
 
   return `+1 (${slice1}) ${slice2} ${slice3}`;
 }
+
+export default ResumeView;

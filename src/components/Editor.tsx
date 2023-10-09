@@ -3,8 +3,7 @@ import cx from 'classnames';
 
 import { useResumeManager } from '../hooks/useResumeManager';
 import Navigator from './Navigator';
-import Placeholder from './Placeholder';
-import { Resume } from './Resume';
+import ResumeView from './ResumeView';
 
 const Editor: FunctionComponent = () => {
   const rm = useResumeManager();
@@ -24,12 +23,15 @@ const Editor: FunctionComponent = () => {
           'bg-white',
           'border border-t-0 border-gray-400',
           'rounded rounded-ss-none',
-          'p-8 pt-10'
+          'p-8'
         )}
       >
-        <div style={{ width: '8.5in', height: '11in' }} className="relative">
-          {rm.resumes.length <= 0 ? <Placeholder /> : <Resume />}
-        </div>
+        <p className="mb-8">
+          <b>Instructions</b>: Double click on the areas you would like to edit
+          on the resume below. Hit enter when you're done.
+        </p>
+
+        <ResumeView />
       </div>
     </div>
   );
