@@ -119,10 +119,50 @@ const resumeMangerReducer: React.Reducer<ResumeManager, ResumeManagerAction> = (
 
       return newManager;
     }
+    case 'update-resume': {
+      const newManager: ResumeManager = {
+        ...manager,
+        resumes: manager.resumes.map((resume) => {
+          if (resume.id === action.resumeId) {
+            return {
+              ...resume,
+              [action.key]: action.value,
+            };
+          } else {
+            return resume;
+          }
+        }),
+      };
+
+      window.localStorage.setItem(
+        LOCAL_STORAGE_KEY,
+        JSON.stringify(newManager.resumes)
+      );
+
+      return newManager;
+    }
   }
 
   return manager;
 };
+
+function resumeTemplateTitle(itr = 0): string {
+  return 'New Resume' + (itr === 0 ? '' : ` (${itr + 1})`);
+}
+
+function calcNewResumeTitle(resumes: readonly Resume[]): string {
+  const setOfTitles = new Set<string>(resumes.map((r) => r.title));
+
+  for (let itr = 0; itr < SAVE_LIMIT; itr++) {
+    const title = resumeTemplateTitle(itr);
+
+    if (!setOfTitles.has(title)) {
+      return title;
+    }
+  }
+
+  return resumeTemplateTitle();
+}
 
 export const ResumeManagerProvider: FunctionComponent<PropsWithChildren> = ({
   children,
@@ -145,21 +185,3 @@ export const ResumeManagerProvider: FunctionComponent<PropsWithChildren> = ({
     </ResumeManagerContext.Provider>
   );
 };
-
-function resumeTemplateTitle(itr = 0): string {
-  return 'New Resume' + (itr === 0 ? '' : ` (${itr + 1})`);
-}
-
-function calcNewResumeTitle(resumes: readonly Resume[]): string {
-  const setOfTitles = new Set<string>(resumes.map((r) => r.title));
-
-  for (let itr = 0; itr < SAVE_LIMIT; itr++) {
-    const title = resumeTemplateTitle(itr);
-
-    if (!setOfTitles.has(title)) {
-      return title;
-    }
-  }
-
-  return resumeTemplateTitle();
-}

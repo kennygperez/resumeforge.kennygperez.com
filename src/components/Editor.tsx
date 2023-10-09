@@ -4,6 +4,7 @@ import cx from 'classnames';
 import { useResumeManager } from '../hooks/useResumeManager';
 import Navigator from './Navigator';
 import Placeholder from './Placeholder';
+import { Resume } from './Resume';
 
 const Editor: FunctionComponent = () => {
   const rm = useResumeManager();
@@ -23,11 +24,11 @@ const Editor: FunctionComponent = () => {
           'bg-white',
           'border border-t-0 border-gray-400',
           'rounded rounded-ss-none',
-          'p-4'
+          'p-8 pt-10'
         )}
       >
         <div style={{ width: '8.5in', height: '11in' }} className="relative">
-          <Placeholder />
+          {rm.resumes.length <= 0 ? <Placeholder /> : <Resume />}
         </div>
       </div>
     </div>

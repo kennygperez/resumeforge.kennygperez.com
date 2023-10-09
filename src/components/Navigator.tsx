@@ -5,8 +5,12 @@ import { useResumeManager } from '../hooks/useResumeManager';
 import { useResumeManagerDispatch } from '../hooks/useResumeManagerDispatch';
 
 const Tab: FunctionComponent<
-  PropsWithChildren<{ selected?: boolean; onClick: () => void }>
-> = ({ children, selected = false, onClick }) => {
+  PropsWithChildren<{
+    selected?: boolean;
+    onClick: () => void;
+    t?: string;
+  }>
+> = ({ selected = false, onClick, t }) => {
   return (
     <li
       className={cx(
@@ -21,7 +25,7 @@ const Tab: FunctionComponent<
       )}
       onClick={onClick}
     >
-      {children}
+      {t && <p>{t}</p>}
     </li>
   );
 };
@@ -39,15 +43,12 @@ const Navigator: FunctionComponent = () => {
             key={r.id}
             selected={rm.viewing === r.id}
             onClick={() => rmd({ type: 'view-resume', resumeId: r.id })}
-          >
-            {r.title}
-          </Tab>
+            t={r.title}
+          />
         ))}
 
         {/* Add more */}
-        <Tab onClick={() => rmd({ type: 'add-new-resume' })}>
-          <p>+</p>
-        </Tab>
+        <Tab onClick={() => rmd({ type: 'add-new-resume' })} t={'+'} />
       </ul>
     </nav>
   );

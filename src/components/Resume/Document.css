@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
+
+.document {
+  position: relative;
+  font-family: 'DM Sans', sans-serif;
+  overflow: hidden;
+
+  /* paper letter size */
+  width: 8.5in;
+  height: 11in;
+  padding: 0.6in;
+  font-size: 10pt;
+  line-height: 1.33;
+
+  @apply bg-white;
+}
