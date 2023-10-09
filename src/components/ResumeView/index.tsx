@@ -1,22 +1,25 @@
 import { FunctionComponent, useMemo } from 'react';
 
-import { Document } from './Document.tsx';
-import { EditableH1 } from './EditableH1.tsx';
+import { useResumeManager } from '../../hooks/useResumeManager.ts';
+import DocumentPlaceholder from './DocumentPlaceholder.tsx';
+import Document from './Document.tsx';
+import EditableH1 from './EditableH1.tsx';
+import EditableA from './EditableA.tsx';
+
 import { H2 } from './H2.tsx';
 import { Period } from './Period.tsx';
 import { Section } from './Section.tsx';
-import {
-  education,
-  email,
-  experiences,
-  skills,
-  website,
-} from '../../data/info.ts';
-import { useResumeManager } from '../../hooks/useResumeManager.ts';
-import DocumentPlaceholder from './DocumentPlaceholder.tsx';
 
-const ResumeView: FunctionComponent = () => {
+// Todo: remove this stuff at the end of the project
+import { education, experiences, skills } from '../../data/info.ts';
+
+interface ResumeViewProps {
+  mode: 'edit' | 'print';
+}
+
+const ResumeView: FunctionComponent<ResumeViewProps> = ({ mode }) => {
   const rm = useResumeManager();
+  const isInEditMode = mode === 'edit';
 
   const currentResume = useMemo(() => {
     return rm.resumes.find((r) => r.id === rm.viewing);
@@ -35,15 +38,33 @@ const ResumeView: FunctionComponent = () => {
             <EditableH1 resume={currentResume} field="name" />
             <ul className="flex justify-start items-center">
               <li>
-                <a href={`tel:${currentResume.phone}`}>{currentResume.phone}</a>
+                {isInEditMode ? (
+                  <EditableA resume={currentResume} field="phone" />
+                ) : (
+                  <a href={`tel:${currentResume.phone}`}>
+                    {currentResume.phone}
+                  </a>
+                )}
               </li>
               <li className="px-2">|</li>
               <li>
-                <a href={`mailto:${email}`}>{email}</a>
+                {isInEditMode ? (
+                  <EditableA resume={currentResume} field="email" />
+                ) : (
+                  <a href={`mailto:${currentResume.email}`}>
+                    {currentResume.email}
+                  </a>
+                )}
               </li>
               <li className="px-2">|</li>
               <li>
-                <a href={`https://www.${website}`}>{website}</a>
+                {isInEditMode ? (
+                  <EditableA resume={currentResume} field="website" />
+                ) : (
+                  <a href={`https://www.${currentResume.website}`}>
+                    {currentResume.website}
+                  </a>
+                )}
               </li>
             </ul>
           </div>

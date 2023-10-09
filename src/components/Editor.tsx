@@ -31,7 +31,7 @@ const Editor: FunctionComponent = () => {
           on the resume below. Hit enter when you're done.
         </p>
 
-        <ResumeView />
+        <ResumeView mode="edit" />
       </div>
     </div>
   );
